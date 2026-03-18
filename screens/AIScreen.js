@@ -49,7 +49,7 @@ export default function AIScreen({ lang, onBack }) {
           ];
 
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${savedKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${savedKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
