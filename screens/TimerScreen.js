@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { ChevronLeft, Play, Pause, RotateCcw, Timer, Thermometer, CheckCircle } from 'lucide-react-native';
+import Svg, { Circle, Text as SvgText } from 'react-native-svg';
 import { COLORS, FONTS } from '../constants/theme';
-import { STAGES_DATA } from '../data/recipes';
+import { TEXT, STAGES_DATA } from '../data/index';
+import { Droplets, Wind, Moon, Snowflake, Pencil } from 'lucide-react-native';
+
+const STAGE_ICONS = { droplets: Droplets, wind: Wind, moon: Moon, thermometer: Thermometer, snowflake: Snowflake, pencil: Pencil };
 
 export default function TimerScreen({ lang, onBack }) {
+  const t = TEXT[lang];
   const [selected, setSelected] = useState(null);
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [finished, setFinished] = useState(false);
   const [customMins, setCustomMins] = useState('');
-  const [customSecs, setCustomSecs] = useState('');
   const intervalRef = useRef(null);
-
   const remaining = Math.max(0, seconds - elapsed);
 
   useEffect(() => {
     if (running && remaining > 0) {
       intervalRef.current = setInterval(() => {
         setElapsed(e => {
-          if (e + 1 >= seconds) {
-            clearInterval(intervalRef.current);
-            setRunning(false);
-            setFinished(true);
-          }
+          if (e + 1 >= seconds) { clearInterval(intervalRef.current); setRunning(false); setFinished(true); }
           return e + 1;
         });
       }, 1000);
@@ -31,66 +31,67 @@ export default function TimerScreen({ lang, onBack }) {
     return () => clearInterval(intervalRef.current);
   }, [running]);
 
+  const dM = String(Math.floor(remaining / 60)).padStart(2, '0');
+  const dS = String(remaining % 60).padStart(2, '0');
+  const circumference = 2 * Math.PI * 54;
+  const strokeDash = circumference * (1 - (seconds > 0 ? Math.min(1, elapsed / seconds) : 0));
+  const stage = selected !== null ? STAGES_DATA[selected] : null;
+
   const startTimer = () => { if (remaining > 0) { setFinished(false); setRunning(true); } };
   const pauseTimer = () => { clearInterval(intervalRef.current); setRunning(false); };
   const resetTimer = () => { clearInterval(intervalRef.current); setRunning(false); setElapsed(0); setFinished(false); };
-  const selectStage = (s, i) => {
-    clearInterval(intervalRef.current);
-    setSelected(i); setRunning(false); setFinished(false); setElapsed(0);
-    setSeconds(s.name !== 'Custom' ? s.mins * 60 : 0);
+  const selectStage = (i) => {
+    clearInterval(intervalRef.current); setSelected(i); setRunning(false); setFinished(false); setElapsed(0);
+    setSeconds(STAGES_DATA[i].name !== 'Custom' ? STAGES_DATA[i].mins * 60 : 0);
   };
-  const applyCustom = () => {
-    const total = (parseInt(customMins) || 0) * 60 + (parseInt(customSecs) || 0);
-    if (total > 0) { resetTimer(); setSeconds(total); }
-  };
-
-  const stage = selected !== null ? STAGES_DATA[selected] : null;
-  const dM = String(Math.floor(remaining / 60)).padStart(2, '0');
-  const dS = String(remaining % 60).padStart(2, '0');
-  const progress = seconds > 0 ? Math.min(1, elapsed / seconds) : 0;
 
   return (
-    <SafeAreaView style={s.safe}>
+    <View style={s.screen}>
       <View style={s.header}>
-        <TouchableOpacity onPress={onBack} style={s.backBtn}><Text style={s.backArrow}>‹</Text></TouchableOpacity>
-        <Text style={s.headerTitle}>{lang === 'id' ? 'Timer Fermentasi' : 'Fermentation Timer'}</Text>
+        <TouchableOpacity style={s.backBtn} onPress={onBack}><ChevronLeft size={20} color={COLORS.white} /></TouchableOpacity>
+        <Text style={s.title}>{t.timerTitle}</Text>
       </View>
-      <ScrollView contentContainerStyle={s.body}>
-        {/* Timer Display */}
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={s.body}>
+        {/* Timer display */}
         <View style={s.timerDisplay}>
-          <Text style={s.timerTime}>{dM}:{dS}</Text>
-          <View style={s.progressBar}>
-            <View style={[s.progressFill, { width: `${progress * 100}%` }]} />
-          </View>
-          <Text style={s.timerLabel}>
-            {stage ? `${stage.emoji} ${lang === 'id' ? stage.name : stage.nameEn}` : (lang === 'id' ? 'Pilih tahap' : 'Select a stage')}
-          </Text>
+          <Svg width={140} height={140} style={{ marginBottom: 8 }}>
+            <Circle cx={70} cy={70} r={54} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth={8} />
+            <Circle cx={70} cy={70} r={54} fill="none" stroke={finished ? COLORS.green : COLORS.orangeLight}
+              strokeWidth={8} strokeLinecap="round" strokeDasharray={`${circumference} ${circumference}`}
+              strokeDashoffset={strokeDash} transform="rotate(-90, 70, 70)" />
+            <SvgText x={70} y={68} textAnchor="middle" fill={COLORS.orangeLight} fontSize={26} fontFamily={FONTS.playfair900}>{dM}:{dS}</SvgText>
+            <SvgText x={70} y={85} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize={11}>
+              {finished ? 'Selesai!' : running ? 'berjalan...' : 'pilih tahap'}
+            </SvgText>
+          </Svg>
+          <Text style={s.timerLabel}>{stage ? (lang === 'id' ? stage.name : stage.nameEn) : t.selectStage}</Text>
           {finished && (
             <View style={s.finishedBadge}>
-              <Text style={s.finishedText}>🎉 {lang === 'id' ? 'Timer Selesai!' : 'Timer Done!'}</Text>
+              <CheckCircle size={14} color={COLORS.white} />
+              <Text style={s.finishedTxt}>Timer Selesai!</Text>
             </View>
           )}
         </View>
 
-        {/* Controls */}
-        <View style={s.btnRow}>
+        {/* Buttons */}
+        <View style={s.timerBtns}>
           {!running
-            ? <TouchableOpacity style={[s.timerBtn, s.timerBtnStart, remaining === 0 && { opacity: 0.5 }]} onPress={startTimer}>
-                <Text style={s.timerBtnText}>▶ {lang === 'id' ? 'Mulai' : 'Start'}</Text>
+            ? <TouchableOpacity style={[s.timerBtn, s.timerBtnStart, { opacity: remaining === 0 ? 0.5 : 1 }]} onPress={startTimer}>
+                <Play size={14} color={COLORS.white} /><Text style={s.timerBtnTxt}>{t.startTimer}</Text>
               </TouchableOpacity>
             : <TouchableOpacity style={[s.timerBtn, s.timerBtnStart]} onPress={pauseTimer}>
-                <Text style={s.timerBtnText}>⏸ Pause</Text>
+                <Pause size={14} color={COLORS.white} /><Text style={s.timerBtnTxt}>Pause</Text>
               </TouchableOpacity>
           }
           <TouchableOpacity style={[s.timerBtn, s.timerBtnReset]} onPress={resetTimer}>
-            <Text style={[s.timerBtnText, { color: COLORS.brownDark }]}>↺ {lang === 'id' ? 'Reset' : 'Reset'}</Text>
+            <RotateCcw size={14} color={COLORS.brownDark} /><Text style={[s.timerBtnTxt, { color: COLORS.brownDark }]}>{t.resetTimer}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Stage info */}
         {stage && (
           <View style={s.infoBox}>
-            <Text style={s.infoTitle}>🌡️ {lang === 'id' ? stage.temp : stage.tempEn}</Text>
+            <View style={s.infoTitle}><Thermometer size={12} color={COLORS.brownDark} /><Text style={s.infoTitleTxt}>{lang === 'id' ? stage.temp : stage.tempEn}</Text></View>
             <Text style={s.infoText}>{lang === 'id' ? stage.desc : stage.descEn}</Text>
           </View>
         )}
@@ -99,71 +100,71 @@ export default function TimerScreen({ lang, onBack }) {
         {selected !== null && STAGES_DATA[selected].name === 'Custom' && (
           <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16, alignItems: 'flex-end' }}>
             <View style={{ flex: 1 }}>
-              <Text style={s.label}>{lang === 'id' ? 'Menit' : 'Minutes'}</Text>
+              <Text style={s.label}>Menit</Text>
               <TextInput style={s.input} keyboardType="numeric" placeholder="60" placeholderTextColor={COLORS.tanDark} value={customMins} onChangeText={setCustomMins} />
             </View>
-            <View style={{ flex: 1 }}>
-              <Text style={s.label}>{lang === 'id' ? 'Detik' : 'Seconds'}</Text>
-              <TextInput style={s.input} keyboardType="numeric" placeholder="0" placeholderTextColor={COLORS.tanDark} value={customSecs} onChangeText={setCustomSecs} />
-            </View>
-            <TouchableOpacity style={[s.timerBtn, s.timerBtnStart, { flex: 1, marginBottom: 1 }]} onPress={applyCustom}>
-              <Text style={s.timerBtnText}>Set</Text>
+            <TouchableOpacity style={[s.timerBtn, s.timerBtnStart, { flex: 1, marginBottom: 0 }]}
+              onPress={() => { const total = (parseInt(customMins) || 0) * 60; if (total > 0) { clearInterval(intervalRef.current); setRunning(false); setElapsed(0); setFinished(false); setSeconds(total); } }}>
+              <Text style={s.timerBtnTxt}>Set</Text>
             </TouchableOpacity>
           </View>
         )}
 
-        {/* Stage list */}
-        <Text style={s.sectionHeader}>{lang === 'id' ? 'Tahap Fermentasi' : 'Fermentation Stages'}</Text>
-        {STAGES_DATA.map((st, i) => (
-          <TouchableOpacity key={i} style={[s.stageCard, selected === i && s.stageCardActive]} onPress={() => selectStage(st, i)}>
-            <View style={[s.stageIcon, selected === i && s.stageIconActive]}>
-              <Text style={{ fontSize: 18 }}>{st.emoji}</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={s.stageName}>{lang === 'id' ? st.name : st.nameEn}</Text>
-              <Text style={s.stageTime}>
-                {st.name === 'Custom' ? '✏️ Atur sendiri' : `⏱ ${st.mins >= 60 ? `${Math.floor(st.mins / 60)}j${st.mins % 60 > 0 ? ` ${st.mins % 60}m` : ''}` : `${st.mins} menit`}`}
-              </Text>
-            </View>
-            <Text style={s.stageTemp} numberOfLines={2}>{lang === 'id' ? st.temp : st.tempEn}</Text>
-          </TouchableOpacity>
-        ))}
+        <Text style={s.sectionTitle}>{t.proofingStages}</Text>
+        {STAGES_DATA.map((sv, i) => {
+          const SIcon = STAGE_ICONS[sv.icon] || Droplets;
+          const isActive = selected === i;
+          return (
+            <TouchableOpacity key={i} style={[s.stageCard, isActive && s.stageCardActive]} onPress={() => selectStage(i)} activeOpacity={0.8}>
+              <View style={[s.stageIcon, isActive && s.stageIconActive]}>
+                <SIcon size={16} color={isActive ? COLORS.white : COLORS.brownMid} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={s.stageName}>{lang === 'id' ? sv.name : sv.nameEn}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Timer size={10} color={COLORS.textLight} />
+                  <Text style={s.stageTime}>
+                    {sv.name === 'Custom' ? 'Atur sendiri' : sv.mins >= 60 ? `${Math.floor(sv.mins / 60)}j ${sv.mins % 60 > 0 ? sv.mins % 60 + 'm' : ''}` : `${sv.mins} menit`}
+                  </Text>
+                </View>
+              </View>
+              <Text style={s.stageTemp} numberOfLines={2}>{lang === 'id' ? sv.temp : sv.tempEn}</Text>
+            </TouchableOpacity>
+          );
+        })}
         <View style={{ height: 32 }} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: COLORS.cream },
-  header: { backgroundColor: COLORS.brownDark, paddingHorizontal: 20, paddingVertical: 16, flexDirection: 'row', alignItems: 'center', gap: 12 },
-  backBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.15)', alignItems: 'center', justifyContent: 'center' },
-  backArrow: { color: COLORS.white, fontSize: 22, fontWeight: '700', marginTop: -2 },
-  headerTitle: { fontSize: 20, fontFamily: FONTS.display, color: COLORS.cream },
-  body: { padding: 20 },
-  timerDisplay: { backgroundColor: COLORS.brownDark, borderRadius: 24, padding: 28, alignItems: 'center', marginBottom: 16 },
-  timerTime: { fontSize: 64, fontWeight: '900', color: COLORS.orangeLight, letterSpacing: -2 },
-  progressBar: { width: '100%', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 8, height: 8, marginVertical: 12, overflow: 'hidden' },
-  progressFill: { height: '100%', backgroundColor: COLORS.orangeLight, borderRadius: 8 },
-  timerLabel: { fontSize: 12, color: COLORS.tanDark, letterSpacing: 2, textTransform: 'uppercase' },
-  finishedBadge: { backgroundColor: COLORS.successGreen, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 6, marginTop: 10 },
-  finishedText: { color: COLORS.white, fontSize: 13, fontWeight: '700' },
-  btnRow: { flexDirection: 'row', gap: 10, marginBottom: 16 },
-  timerBtn: { flex: 1, padding: 14, borderRadius: 14, alignItems: 'center' },
+  screen: { flex: 1, backgroundColor: COLORS.cream },
+  header: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingHorizontal: 24, paddingVertical: 20, borderBottomWidth: 1.5, borderBottomColor: COLORS.tan },
+  backBtn: { width: 38, height: 38, borderRadius: 19, backgroundColor: COLORS.brownDark, alignItems: 'center', justifyContent: 'center' },
+  title: { fontFamily: FONTS.playfair900, fontSize: 22, color: COLORS.brownDark },
+  body: { padding: 24 },
+  timerDisplay: { backgroundColor: COLORS.brownDark, borderRadius: 28, padding: 28, alignItems: 'center', marginBottom: 20 },
+  timerLabel: { fontFamily: FONTS.dmSansBold, fontSize: 11, color: COLORS.tanDark, letterSpacing: 2, textTransform: 'uppercase', marginTop: 10 },
+  finishedBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: COLORS.green, borderRadius: 20, paddingVertical: 6, paddingHorizontal: 16, marginTop: 8 },
+  finishedTxt: { fontFamily: FONTS.dmSansBold, fontSize: 13, color: COLORS.white },
+  timerBtns: { flexDirection: 'row', gap: 10, marginBottom: 24 },
+  timerBtn: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, padding: 15, borderRadius: 16 },
   timerBtnStart: { backgroundColor: COLORS.orange },
   timerBtnReset: { backgroundColor: COLORS.tan },
-  timerBtnText: { fontSize: 14, fontWeight: '700', color: COLORS.white },
-  infoBox: { backgroundColor: '#FFF5EE', borderWidth: 1.5, borderColor: COLORS.orangeLight, borderRadius: 14, padding: 14, marginBottom: 16 },
-  infoTitle: { fontSize: 12, fontWeight: '700', color: COLORS.orange, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 4 },
-  infoText: { fontSize: 13, color: COLORS.textMid, lineHeight: 19 },
-  label: { fontSize: 12, fontWeight: '700', color: COLORS.textMid, letterSpacing: 0.5, textTransform: 'uppercase', marginBottom: 6 },
-  input: { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.tan, borderRadius: 12, padding: 12, fontSize: 15, color: COLORS.textDark },
-  sectionHeader: { fontSize: 16, fontFamily: FONTS.display, color: COLORS.brownDark, marginBottom: 12 },
-  stageCard: { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.tan, borderRadius: 16, padding: 14, marginBottom: 10, flexDirection: 'row', alignItems: 'center', gap: 12 },
-  stageCardActive: { borderColor: COLORS.orange, backgroundColor: '#FFF5EE' },
-  stageIcon: { width: 36, height: 36, backgroundColor: COLORS.tan, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+  timerBtnTxt: { fontFamily: FONTS.dmSansBold, fontSize: 14, color: COLORS.white },
+  infoBox: { backgroundColor: COLORS.cream, borderWidth: 2, borderColor: COLORS.tan, borderRadius: 16, padding: 14, marginBottom: 16 },
+  infoTitle: { flexDirection: 'row', alignItems: 'center', gap: 5, marginBottom: 5 },
+  infoTitleTxt: { fontFamily: FONTS.dmSansBold, fontSize: 11, color: COLORS.brownDark, textTransform: 'uppercase', letterSpacing: 1 },
+  infoText: { fontFamily: FONTS.dmSans, fontSize: 13, color: COLORS.textMid, lineHeight: 20 },
+  label: { fontFamily: FONTS.dmSansBold, fontSize: 11, color: COLORS.textLight, letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 8 },
+  input: { backgroundColor: COLORS.white, borderWidth: 2, borderColor: COLORS.tan, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 13, fontFamily: FONTS.dmSans, fontSize: 15, color: COLORS.textDark },
+  sectionTitle: { fontFamily: FONTS.playfair700, fontSize: 16, color: COLORS.brownDark, marginBottom: 12 },
+  stageCard: { backgroundColor: COLORS.white, borderWidth: 2, borderColor: COLORS.tan, borderRadius: 18, padding: 14, marginBottom: 10, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  stageCardActive: { borderColor: COLORS.orange, backgroundColor: '#FFF8F2' },
+  stageIcon: { width: 38, height: 38, backgroundColor: COLORS.tan, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
   stageIconActive: { backgroundColor: COLORS.orange },
-  stageName: { fontWeight: '700', fontSize: 14, color: COLORS.brownDark },
-  stageTime: { fontSize: 12, color: COLORS.textLight, marginTop: 2 },
-  stageTemp: { fontSize: 10, color: COLORS.textLight, fontWeight: '500', textAlign: 'right', maxWidth: 80 },
+  stageName: { fontFamily: FONTS.dmSansBold, fontSize: 14, color: COLORS.brownDark },
+  stageTime: { fontFamily: FONTS.dmSans, fontSize: 11, color: COLORS.textLight, marginTop: 2 },
+  stageTemp: { fontFamily: FONTS.dmSans, fontSize: 10, color: COLORS.textLight, textAlign: 'right', maxWidth: 80 },
 });
