@@ -21,7 +21,7 @@ export default function App() {
   const [liquidDB, setLiquidDB] = useState(BASE_LIQUID_DB);
   const [importedFromBakers, setImportedFromBakers] = useState(null);
 
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     PlayfairDisplay_700Bold,
     PlayfairDisplay_900Black,
     DMSans_400Regular,
@@ -31,10 +31,11 @@ export default function App() {
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) await SplashScreen.hideAsync();
-  }, [fontsLoaded]);
+    if (fontsLoaded || fontError) await SplashScreen.hideAsync();
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded) return null;
+  // Tampilkan app meski font gagal load (pakai system font sebagai fallback)
+  if (!fontsLoaded && !fontError) return null;
 
   const navigateToHydrationWithData = (data) => {
     setImportedFromBakers(data);
