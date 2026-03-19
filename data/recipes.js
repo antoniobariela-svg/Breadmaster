@@ -1,141 +1,111 @@
-export const HYDRATION_PRESETS = [
-  { name: 'Air', nameEn: 'Water', waterPct: 100, emoji: '💧' },
-  { name: 'Susu Cair', nameEn: 'Liquid Milk', waterPct: 87, emoji: '🥛' },
-  { name: 'Telur', nameEn: 'Egg', waterPct: 75, emoji: '🥚' },
-  { name: 'Susu Kental Manis', nameEn: 'Condensed Milk', waterPct: 27, emoji: '🍯' },
-  { name: 'Madu', nameEn: 'Honey', waterPct: 17, emoji: '🍯' },
-  { name: 'Mentega', nameEn: 'Butter', waterPct: 15, emoji: '🧈' },
-  { name: 'Minyak', nameEn: 'Oil', waterPct: 0, emoji: '🫙' },
-  { name: 'Lainnya', nameEn: 'Other', waterPct: 100, emoji: '➕' },
-];
+export const RECIPE_DETAILS = {
+  Sourdough: {
+    stepsDetail: [
+      { title: 'Autolyse — Campurkan Tepung & Air', detail: 'Campurkan 500g tepung protein tinggi dengan 350g air (sisakan 25g untuk nanti). Aduk hingga tidak ada tepung kering, tidak perlu menguleni. Tutup dengan kain lembab atau plastik wrap.', tips: 'Gunakan air suhu 26–28°C. Air terlalu panas akan membunuh enzim, terlalu dingin memperlambat proses. Autolyse membantu gluten terbentuk tanpa tenaga.', duration: '30 menit', temp: '26–28°C' },
+      { title: 'Tambahkan Starter & Garam', detail: 'Tuang 100g starter sourdough yang aktif (sudah feed 4-8 jam sebelumnya, kondisi peak). Larutkan 10g garam di 25g air sisa, lalu tambahkan ke adonan. Aduk hingga rata dengan teknik pinch & fold.', tips: 'Pastikan starter benar-benar aktif — tes dengan float test. Garam ditambahkan terakhir karena bisa menghambat fermentasi jika dicampur langsung dengan starter.', duration: '10–15 menit', temp: '26°C' },
+      { title: 'Stretch & Fold', detail: 'Lakukan 4–6 set stretch & fold selama 3 jam pertama bulk fermentasi. Setiap set: basahi tangan, angkat satu sisi adonan setinggi mungkin, lipat ke tengah. Putar mangkuk 90°, ulangi 4 sisi.', tips: 'Set pertama adonan terasa lembek — ini normal. Setiap set berikutnya adonan akan semakin kencang. Bisa juga pakai teknik coil fold untuk hidrasi tinggi.', duration: '3 jam (4–6 set)', temp: '26–28°C' },
+      { title: 'Bulk Fermentasi', detail: 'Biarkan adonan fermentasi tanpa diganggu. Adonan siap saat mengembang 50–75%, permukaan sedikit kubah, dan terlihat gelembung gas di pinggir mangkuk.', tips: 'Waktu bulk bergantung suhu ruangan. 26°C = 4–5 jam. 24°C = 5–7 jam. 22°C = 7–9 jam. Lebih baik under-proof sedikit daripada over-proof.', duration: '4–6 jam', temp: '24–26°C' },
+      { title: 'Pre-shape & Bench Rest', detail: 'Tuang adonan ke meja tanpa tepung. Gunakan scraper untuk lipat adonan menjadi bola kasar. Biarkan istirahat 20–30 menit tanpa ditutup. Lakukan final shape.', tips: 'Jangan tambahkan tepung terlalu banyak saat shaping. Permukaan adonan harus terasa seperti kulit yang kencang. Taburi banneton dengan campuran tepung beras dan terigu.', duration: '20–30 menit bench rest', temp: 'Suhu ruang' },
+      { title: 'Cold Proof di Kulkas', detail: 'Masukkan adonan yang sudah dibentuk ke banneton dengan permukaan di bawah. Taburi sedikit tepung, tutup. Masukkan kulkas 4–6°C selama 8–16 jam.', tips: 'Cold proof membuat roti lebih asam, crumb lebih terbuka. Adonan bisa bertahan di kulkas hingga 3 hari! Scoring lebih mudah saat adonan masih dingin.', duration: '8–16 jam', temp: '4–6°C (kulkas)' },
+      { title: 'Panggang di Dutch Oven', detail: 'Panaskan oven dan Dutch oven di 250°C minimal 45 menit. Score adonan, masukkan ke Dutch oven dengan tutup. Panggang 20 menit tutup, buka tutup, lanjut 20–25 menit.', tips: 'Dutch oven menciptakan uap yang membuat kulit mengembang maksimal. Semakin gelap kulitnya, semakin renyah. Roti matang saat diketuk bagian bawahnya terdengar hollow.', duration: '40–45 menit', temp: '250°C → 230°C' },
+    ],
+    troubleshooting: [
+      { problem: 'Roti tidak mengembang / flat', cause: 'Starter tidak aktif atau over/under-proof', solution: 'Lakukan float test pada starter. Pastikan bulk fermentasi tidak terlalu lama atau sebentar. Suhu ruangan yang terlalu dingin memperlambat fermentasi.' },
+      { problem: 'Crumb terlalu rapat / padat', cause: 'Under-proof atau shaping terlalu kencang', solution: 'Perpanjang waktu bulk fermentasi. Pastikan adonan mengembang 50–75% sebelum dibentuk. Saat shaping jangan terlalu menekan adonan.' },
+      { problem: 'Kulit tidak renyah', cause: 'Kurang uap saat awal pemanggangan', solution: 'Pastikan Dutch oven sudah dipanaskan minimal 45 menit. Tutup Dutch oven rapat di 20 menit pertama.' },
+      { problem: 'Roti terlalu asam', cause: 'Over-fermentasi atau starter terlalu asam', solution: 'Kurangi waktu bulk fermentasi. Gunakan starter yang lebih segar. Cold proof cukup 8–10 jam.' },
+      { problem: 'Adonan sangat lengket, susah dibentuk', cause: 'Over-proof atau hidrasi terlalu tinggi', solution: 'Dinginkan adonan 15 menit di kulkas sebelum shaping. Turunkan hidrasi ke 68–70% untuk pemula.' },
+      { problem: 'Scoring tidak membuka / ear tidak terbentuk', cause: 'Pisau kurang tajam atau sudut salah', solution: 'Gunakan lame atau pisau sangat tajam. Sudut scoring harus 30–45°. Score saat adonan masih dingin dari kulkas.' },
+    ],
+  },
+  'Roti Tawar': {
+    stepsDetail: [
+      { title: 'Campur Bahan Kering', detail: 'Campurkan 500g tepung serbaguna, 10g garam, 7.5g ragi instan, dan 25g gula. Aduk rata dengan whisk agar ragi dan garam tidak bersentuhan langsung.', tips: 'Pastikan ragi instan masih aktif. Jika ragu, larutkan di air hangat dengan sedikit gula, tunggu 10 menit. Jika berbusa, ragi masih aktif.', duration: '5 menit', temp: 'Suhu ruang' },
+      { title: 'Tambahkan Cairan & Uleni', detail: 'Tambahkan 325g air hangat (37–38°C) dan 30g mentega lunak. Uleni 10–15 menit hingga adonan halus dan elastis. Tes windowpane: regangkan tipis — jika tidak sobek, adonan siap.', tips: 'Air terlalu panas (>43°C) akan membunuh ragi. Mentega lunak (bukan cair) membuat crumb lebih lembut. Tambahkan air 1 sendok sekaligus jika terlalu kering.', duration: '10–15 menit', temp: '37–38°C (air)' },
+      { title: 'Proofing Pertama', detail: 'Bulatkan adonan, taruh di mangkuk berminyak. Tutup dengan plastic wrap. Fermentasi di tempat hangat hingga 2x lipat — sekitar 1 jam di suhu 28°C.', tips: "Buat 'proofing box': panaskan oven 5 menit, matikan, masukkan adonan. Suhu ideal 27–29°C. Jangan taruh di tempat berangin.", duration: '60–90 menit', temp: '27–29°C' },
+      { title: 'Kempiskan & Bentuk', detail: 'Keluarkan adonan, tekan pelan untuk mengeluarkan gas. Giling jadi persegi panjang. Gulung rapat, masukkan ke loyang berminyak dengan sambungan di bawah.', tips: 'Jangan memukul adonan terlalu keras. Gulung yang kencang menghasilkan crumb yang seragam. Pilih loyang ukuran 20x10cm.', duration: '10 menit', temp: 'Suhu ruang' },
+      { title: 'Proofing Kedua', detail: 'Tutup loyang dan fermentasi 45–60 menit hingga adonan mengembang 1.5x. Panaskan oven ke 180°C di 15 menit terakhir.', tips: 'Jangan over-proof di tahap ini. Tanda siap: tekan pelan dengan jari, adonan kembali perlahan dalam 2–3 detik.', duration: '45–60 menit', temp: '27–29°C' },
+      { title: 'Panggang', detail: 'Panggang 180°C selama 30–35 menit hingga coklat keemasan. Olesi mentega cair segera setelah keluar. Dinginkan di rak kawat 20 menit sebelum dipotong.', tips: 'Roti matang saat diketuk bagian bawahnya terdengar hollow. Jangan potong roti yang masih panas — crumb menjadi gummy.', duration: '30–35 menit', temp: '180°C' },
+    ],
+    troubleshooting: [
+      { problem: 'Roti tidak mengembang di oven', cause: 'Ragi tidak aktif atau over-proof', solution: 'Pastikan ragi masih aktif sebelum dipakai. Jangan biarkan proofing kedua terlalu lama. Oven harus sudah panas.' },
+      { problem: 'Roti keras dan padat', cause: 'Terlalu banyak tepung atau kurang menguleni', solution: 'Ukur tepung dengan timbangan. Uleni minimal 10 menit hingga windowpane test berhasil.' },
+      { problem: 'Kulit terlalu keras', cause: 'Oven terlalu panas atau tidak ada uap', solution: 'Turunkan suhu oven 10°C. Taruh mangkuk berisi air panas di dasar oven. Olesi mentega segera setelah keluar oven.' },
+      { problem: 'Bagian tengah masih mentah', cause: 'Oven tidak cukup panas atau waktu terlalu singkat', solution: 'Gunakan termometer oven. Panggang lebih lama. Tutup dengan foil jika permukaan terlalu coklat.' },
+      { problem: 'Roti kempes setelah keluar oven', cause: 'Over-proof atau kurang dipanggang', solution: 'Kurangi waktu proofing kedua. Pastikan roti benar-benar matang sebelum dikeluarkan.' },
+    ],
+  },
+  Croissant: {
+    stepsDetail: [
+      { title: 'Buat Détrempe', detail: 'Campurkan 500g tepung, 6g ragi, 10g garam, 50g gula, 60g mentega lunak, 225g air dingin + 50g susu dingin. Uleni minimal. Bentuk persegi, bungkus plastik, simpan kulkas semalam.', tips: 'Kunci croissant adalah SUHU DINGIN. Gunakan semua bahan dingin. Jangan over-knead — gluten terlalu kuat membuat adonan susah digilas.', duration: '20 menit + semalam', temp: '4°C (kulkas)' },
+      { title: 'Siapkan Butter Block', detail: 'Taruh 250g butter berkualitas tinggi (min 84% fat) di antara plastik wrap. Pukul dan giling hingga persegi 15x15cm. Simpan kulkas hingga dingin tapi masih bisa ditekuk.', tips: 'Butter harus seplastis adonan. Terlalu keras akan memecah lapisan, terlalu lembek akan meleleh. Tes: tekuk butter block, jika retak berarti terlalu dingin.', duration: '10 menit', temp: '15–17°C (butter)' },
+      { title: 'Enklosing Butter', detail: 'Giling détrempe lebih besar dari butter block. Taruh butter di tengah, lipat adonan menutupi seperti amplop. Tekan tepi untuk menyegel.', tips: 'Jika butter atau adonan terlalu dingin dan retak, biarkan sebentar di suhu ruang. Jangan biarkan butter keluar dari adonan.', duration: '15 menit', temp: 'Adonan & butter harus sama dinginnya' },
+      { title: 'Book Fold (3x)', detail: 'Giling menjadi 60x20cm. Lakukan book fold: lipat 1/3 kanan ke tengah, lalu 1/3 kiri menutupi. Putar 90°, ulangi. Istirahat kulkas 30 menit. Ulangi 2–3x lagi.', tips: 'Buat tanda di plastik wrap setelah setiap fold. Istirahat kulkas sangat penting. Total: 3x book fold = 64 lapisan.', duration: '3 × (15 menit + 30 menit istirahat)', temp: '4°C (istirahat)' },
+      { title: 'Potong & Bentuk', detail: 'Giling adonan final tebal 4mm. Potong segitiga, buat potongan kecil di tengah alas. Gulung dari alas ke ujung dengan tekanan ringan.', tips: 'Gunakan pisau sangat tajam. Ujung croissant (tip) harus ada di bawah saat diletakkan. Beri jarak cukup di baking sheet.', duration: '30–45 menit', temp: 'Ruang dingin ber-AC' },
+      { title: 'Proofing & Panggang', detail: 'Proofing di suhu 24–26°C selama 2–3 jam hingga ukuran 2x dan jiggly. Olesi egg wash dua kali. Panggang 200°C selama 18–22 menit.', tips: 'Di atas 27°C butter akan meleleh dan lapisan hilang. Egg wash ganda menghasilkan kilap lebih baik. Warna matang: coklat karamel gelap.', duration: '2–3 jam + 20 menit panggang', temp: '24–26°C proofing, 200°C oven' },
+    ],
+    troubleshooting: [
+      { problem: 'Tidak ada lapisan / padat seperti roti biasa', cause: 'Butter meleleh masuk ke adonan', solution: 'Pastikan semua bahan dan lingkungan dingin. Istirahatkan lebih sering di kulkas. Gunakan butter 84%+ fat.' },
+      { problem: 'Butter bocor keluar saat dipanggang', cause: 'Under-proof atau oven tidak cukup panas', solution: 'Pastikan croissant sudah jiggly saat digoyang. Oven harus sudah panas sempurna.' },
+      { problem: 'Tidak mengembang saat dipanggang', cause: 'Lapisan tidak terbentuk atau over-proof', solution: 'Cek teknik laminasi. Over-proof membuat lapisan rusak karena gas fermentasi habis.' },
+      { problem: 'Adonan robek saat digilas', cause: 'Gluten terlalu kuat atau bahan terlalu dingin', solution: 'Jangan over-knead. Jika adonan kencang, istirahat 10 menit. Keduanya butuh suhu yang tepat.' },
+      { problem: 'Terlalu keras setelah dingin', cause: 'Over-baked atau terlalu banyak tepung', solution: 'Angkat sebelum terlalu gelap. Simpan dalam kantong kertas. Hangatkan di oven 150°C sebelum disajikan.' },
+    ],
+  },
+  Ciabatta: {
+    stepsDetail: [
+      { title: 'Buat Biga (Pre-ferment)', detail: 'Campurkan 300g tepung, 0.5g ragi instan, dan 225g air suhu ruang. Aduk hingga rata. Tutup, fermentasi di suhu ruang 12–16 jam.', tips: 'Biga adalah kunci rasa ciabatta yang kompleks. Ragi sangat sedikit karena fermentasinya lama. Jangan gunakan air hangat.', duration: '12–16 jam', temp: '20–22°C' },
+      { title: 'Campur Adonan Final', detail: 'Hancurkan biga, tambahkan 200g tepung, 2g ragi, 12g garam, 25g olive oil, dan 175g air. Aduk 8–10 menit hingga sangat elastis.', tips: 'Adonan ciabatta HARUS lengket — jangan tambahkan tepung. Gunakan tangan basah atau scraper.', duration: '10–15 menit', temp: 'Suhu ruang' },
+      { title: 'Stretch & Fold', detail: 'Lakukan stretch & fold setiap 20 menit, 6 kali total dalam container berminyak.', tips: 'Gunakan container transparan untuk memantau gelembung dari samping. Setelah 6 set, adonan harus jauh lebih kencang.', duration: '2 jam (6 set setiap 20 menit)', temp: '24–26°C' },
+      { title: 'Bulk Fermentasi', detail: 'Biarkan adonan fermentasi hingga mengembang 75–100% dengan banyak gelembung gas.', tips: 'Jangan terburu-buru. Gelembung dari sisi container adalah tanda fermentasi yang baik.', duration: '2–3 jam', temp: '24–26°C' },
+      { title: 'Shaping', detail: 'Taburi meja dengan banyak tepung. Tuang adonan perlahan. Potong menjadi 2–3 bagian dengan scraper — jangan ditangani berlebihan.', tips: 'JANGAN keluarkan gas dari adonan! Semakin sedikit kamu menyentuh, semakin terbuka crumb-nya.', duration: '10 menit', temp: 'Suhu ruang' },
+      { title: 'Panggang dengan Uap', detail: 'Panaskan oven 230–250°C dengan baking stone minimal 45 menit. Buat uap dengan nampan air mendidih. Panggang 25–30 menit.', tips: 'Baking stone sangat dianjurkan. Uap di 10 menit pertama penting untuk kulit tipis yang renyah.', duration: '25–30 menit', temp: '230–250°C' },
+    ],
+    troubleshooting: [
+      { problem: 'Crumb rapat, tidak terbuka', cause: 'Terlalu banyak handle saat shaping atau under-fermentasi', solution: 'Kurangi penanganan saat shaping. Pastikan bulk fermentasi cukup lama.' },
+      { problem: 'Ciabatta rata/flat', cause: 'Adonan terlalu lemah atau over-proof', solution: 'Lakukan stretch & fold dengan benar. Oven harus sangat panas dengan baking stone.' },
+      { problem: 'Kulit lembek, tidak renyah', cause: 'Kurang uap atau kurang panas', solution: 'Buat lebih banyak uap. Panggang lebih lama. Setelah matang, biarkan di oven 5 menit lagi.' },
+      { problem: 'Biga berbau terlalu asam', cause: 'Over-fermentasi biga', solution: 'Kurangi waktu atau pindahkan ke kulkas setelah 8 jam.' },
+    ],
+  },
+  Focaccia: {
+    stepsDetail: [
+      { title: 'Campur & Aduk Adonan', detail: 'Campurkan 500g tepung, 4g ragi, 425g air suhu ruang, 50g olive oil, dan 12.5g garam. Aduk 2–3 menit hingga tidak ada tepung kering.', tips: 'Focaccia sengaja tidak diuleni panjang. Gunakan olive oil extra virgin berkualitas. Adonan akan sangat lengket — jangan tambahkan tepung.', duration: '5–10 menit', temp: 'Suhu ruang' },
+      { title: 'Stretch & Fold', detail: 'Lakukan 4 set stretch & fold setiap 30 menit (total 2 jam). Setelah set terakhir, adonan harus jauh lebih kencang.', tips: 'Setiap set membangun struktur tanpa panas dari pengulenan. Jangan skip satu set pun.', duration: '2 jam (4 set)', temp: '24–26°C' },
+      { title: 'Pindah ke Loyang', detail: 'Tuang 3–4 sdm olive oil ke loyang 30x40cm. Tuang adonan, olesi atas dengan olive oil, tutup. Proofing 1 jam.', tips: 'Olive oil di dasar yang membuat bagian bawah renyah dan beraroma. Jangan pelit! Jika adonan tidak menyebar, biarkan istirahat 10 menit.', duration: '60–90 menit', temp: '26–28°C' },
+      { title: 'Dimple & Topping', detail: 'Olesi tangan dengan olive oil. Tekan jari membuat lubang-lubang dalam di seluruh permukaan. Drizzle olive oil, taburi flaky salt dan rosemary.', tips: 'Dimple harus dalam dan berani. Taburi topping SETELAH dimpling agar tidak tenggelam.', duration: '20 menit', temp: 'Suhu ruang' },
+      { title: 'Panggang', detail: 'Panggang 220°C selama 20–25 menit hingga coklat keemasan. Drizzle olive oil fresh di atas selagi panas.', tips: 'Rak oven bawah menghasilkan dasar lebih renyah. Focaccia terbaik dimakan dalam 2 jam setelah dipanggang.', duration: '20–25 menit', temp: '220°C' },
+    ],
+    troubleshooting: [
+      { problem: 'Focaccia terlalu padat', cause: 'Under-fermentasi atau terlalu banyak ditangani', solution: 'Perpanjang fermentasi. Lakukan semua set stretch & fold.' },
+      { problem: 'Dasar tidak renyah', cause: 'Kurang olive oil atau loyang salah', solution: 'Gunakan lebih banyak olive oil di dasar. Pindah ke rak bawah. Gunakan loyang metal.' },
+      { problem: 'Tidak mengembang ke pinggir loyang', cause: 'Gluten terlalu kencang atau proofing kurang', solution: 'Biarkan istirahat lebih lama di loyang. Jangan paksa menyebar.' },
+      { problem: 'Topping gosong', cause: 'Oven terlalu panas atau rak terlalu atas', solution: 'Turunkan suhu 10–15°C. Pindah rak ke tengah. Tutup dengan foil.' },
+    ],
+  },
+  Bagel: {
+    stepsDetail: [
+      { title: 'Campur & Uleni Adonan', detail: 'Campurkan 500g tepung, 5g ragi, 10g garam, 15g gula/malt. Tambahkan 290g air sedikit demi sedikit. Uleni 10–12 menit hingga adonan sangat kencang dan tidak lengket.', tips: 'Hidrasi bagel sengaja rendah (58%) untuk tekstur kenyal. Jangan tambahkan air lebih. Barley malt syrup menghasilkan rasa autentik.', duration: '15 menit', temp: 'Suhu ruang' },
+      { title: 'Proofing & Cold Retard', detail: 'Bagi jadi 8–10 bagian, bulatkan. Proofing 30–60 menit di suhu ruang. Masukkan kulkas semalam (8–16 jam).', tips: 'Cold retard menghasilkan rasa lebih kompleks dan kulit lebih mengkilap setelah direbus.', duration: '1 jam + semalam', temp: '4°C (kulkas)' },
+      { title: 'Bentuk Bagel', detail: 'Gulung jadi tali 20–25cm, tempelkan ujung membentuk cincin. Atau buat bola, tekan ibu jari di tengah, regangkan lubang 4–5cm. Proofing 30–60 menit.', tips: 'Buat lubang lebih besar dari yang diinginkan — akan mengecil saat proofing dan perebusan. Tes: taruh di air dingin, jika mengapung siap direbus.', duration: '30–60 menit', temp: '24–26°C' },
+      { title: 'Rebus di Air Baking Soda', detail: 'Didihkan air dengan 1 sdm baking soda dan 1 sdm malt. Rebus bagel 45–60 detik setiap sisi. Angkat dan taruh di rak.', tips: 'Jangan skip perebusan — inilah yang membuat bagel BERBEDA dari roti biasa. Rebus lebih lama untuk tekstur lebih kenyal.', duration: '2–3 menit per bagel', temp: 'Air mendidih' },
+      { title: 'Topping & Panggang', detail: 'Segera taburi topping saat masih basah. Panggang 220°C selama 20–25 menit hingga coklat keemasan dan mengkilap.', tips: 'Topping harus ditaburi segera setelah perebusan. Bagel terbaik dimakan dalam 2–3 jam. Untuk menyimpan, bekukan lalu panggang langsung dari freezer.', duration: '20–25 menit', temp: '220°C' },
+    ],
+    troubleshooting: [
+      { problem: 'Bagel flat, tidak bulat sempurna', cause: 'Adonan terlalu lembek atau lubang terlalu kecil', solution: 'Kurangi air. Buat lubang lebih besar saat shaping. Pastikan proofing tidak berlebihan.' },
+      { problem: 'Tekstur tidak kenyal', cause: 'Perebusan terlalu singkat atau hidrasi terlalu tinggi', solution: 'Rebus lebih lama (90 detik/sisi). Pastikan air mendidih penuh.' },
+      { problem: 'Kulit tidak mengkilap', cause: 'Kurang baking soda di air rebusan', solution: 'Tambahkan baking soda lebih banyak. Tambahkan malt syrup.' },
+      { problem: 'Lubang menghilang', cause: 'Lubang terlalu kecil atau over-proof', solution: 'Buat lubang 4–5cm. Kurangi waktu proofing. Rebus segera setelah proofing cukup.' },
+      { problem: 'Topping jatuh', cause: 'Ditabur terlalu lama setelah perebusan', solution: 'Taburi segera saat permukaan masih sangat basah. Tekan sedikit agar menempel.' },
+    ],
+  },
+};
 
 export const RECIPES = [
-  { name: 'Sourdough', icon: '🥖', hydration: 75, difficulty: 'Hard', time: '24h', tags: ['Artisan', 'Fermentasi'], diffColor: '#C17F3E',
-    desc: 'Roti asam khas artisan dengan crumb terbuka dan kulit renyah. Mengandalkan fermentasi alami dari starter.',
-    steps: ['Campurkan tepung & air, diamkan 30 menit (autolyse)', 'Tambahkan starter & garam, aduk rata', 'Stretch & fold setiap 30 menit selama 3 jam', 'Bulk fermentasi 4-6 jam di suhu ruang', 'Bentuk adonan, masukkan banneton', 'Cold proof semalam di kulkas (8-12 jam)', 'Panggang di Dutch oven 250°C: 20 menit tutup, 25 menit buka'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 75, unit: 'g', ref: 375 }, { name: 'Starter Sourdough', pct: 20, unit: 'g', ref: 100 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 30, idealPct: 100, tolerance: 0, desc: 'Basis 100%' }, { name: 'Hidrasi', key: 'hydration', weight: 30, idealPct: 75, tolerance: 10, desc: 'Target 65-85%' }, { name: 'Starter', key: 'starter', weight: 25, idealPct: 20, tolerance: 10, desc: 'Target 10-30%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.5, desc: 'Target 1.8-2.2%' }] },
-  { name: 'Roti Tawar', icon: '🍞', hydration: 65, difficulty: 'Easy', time: '3h', tags: ['Soft', 'Klasik'], diffColor: '#7CB87C',
-    desc: 'Roti putih lembut klasik untuk sandwich. Mudah dibuat dan cocok untuk pemula.',
-    steps: ['Campur semua bahan kering', 'Tambahkan air hangat & mentega, uleni 10-15 menit', 'Proofing pertama 1 jam hingga 2x lipat', 'Kempiskan, bentuk loaf', 'Proofing kedua 45 menit', 'Panggang 180°C selama 30-35 menit'],
-    ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Air Hangat', pct: 65, unit: 'g', ref: 325 }, { name: 'Ragi Instan', pct: 1.5, unit: 'g', ref: 7.5 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Gula', pct: 5, unit: 'g', ref: 25 }, { name: 'Mentega', pct: 6, unit: 'g', ref: 30 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 25, idealPct: 65, tolerance: 8, desc: 'Target 57-73%' }, { name: 'Ragi', key: 'yeast', weight: 20, idealPct: 1.5, tolerance: 0.5, desc: 'Target 1-2%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }, { name: 'Lemak', key: 'fat', weight: 10, idealPct: 6, tolerance: 3, desc: 'Target 3-9%' }, { name: 'Gula', key: 'sugar', weight: 5, idealPct: 5, tolerance: 3, desc: 'Target 2-8%' }] },
-  { name: 'Croissant', icon: '🥐', hydration: 52, difficulty: 'Expert', time: '48h', tags: ['Laminated', 'French'], diffColor: '#C03030',
-    desc: 'Pastri berlapis khas Perancis dengan tekstur flaky dan renyah.',
-    steps: ['Buat détrempe, dinginkan semalam', 'Siapkan butter block', 'Laminasi 3x book fold, istirahat 30 menit antar lipatan', 'Potong & bentuk croissant', 'Proofing 2-3 jam', 'Olesi egg wash, panggang 200°C selama 18-22 menit'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air Dingin', pct: 45, unit: 'g', ref: 225 }, { name: 'Susu Cair', pct: 10, unit: 'g', ref: 50 }, { name: 'Ragi Instan', pct: 1.2, unit: 'g', ref: 6 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Gula', pct: 10, unit: 'g', ref: 50 }, { name: 'Mentega Détrempe', pct: 12, unit: 'g', ref: 60 }, { name: 'Butter Laminasi', pct: 50, unit: 'g', ref: 250 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Butter Laminasi', key: 'butter', weight: 30, idealPct: 50, tolerance: 10, desc: 'KRUSIAL - Target 40-60%' }, { name: 'Hidrasi Total', key: 'hydration', weight: 20, idealPct: 52, tolerance: 8, desc: 'Target 44-60%' }, { name: 'Ragi', key: 'yeast', weight: 15, idealPct: 1.2, tolerance: 0.5, desc: 'Target 0.7-1.7%' }, { name: 'Garam', key: 'salt', weight: 10, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }, { name: 'Gula', key: 'sugar', weight: 5, idealPct: 10, tolerance: 4, desc: 'Target 6-14%' }] },
-  { name: 'Ciabatta', icon: '🫓', hydration: 80, difficulty: 'Medium', time: '12h', tags: ['Italian', 'Crispy'], diffColor: '#E8622A',
-    desc: 'Roti Italia dengan crumb sangat terbuka dan kulit tipis renyah.',
-    steps: ['Buat biga semalam', 'Campur biga dengan sisa bahan', 'Stretch & fold setiap 20 menit selama 2 jam', 'Bulk fermentasi 2-3 jam', 'Tuang di meja bertabur tepung, potong tanpa deflasi', 'Panggang 230°C selama 25-30 menit dengan uap'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 80, unit: 'g', ref: 400 }, { name: 'Ragi Instan', pct: 0.5, unit: 'g', ref: 2.5 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Olive Oil', pct: 5, unit: 'g', ref: 25 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 40, idealPct: 80, tolerance: 8, desc: 'KRUSIAL - Target 72-88%' }, { name: 'Ragi', key: 'yeast', weight: 20, idealPct: 0.5, tolerance: 0.3, desc: 'Target 0.2-0.8%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }, { name: 'Minyak', key: 'fat', weight: 5, idealPct: 5, tolerance: 3, desc: 'Opsional' }] },
-  { name: 'Brioche', icon: '🧁', hydration: 50, difficulty: 'Medium', time: '6h', tags: ['Enriched', 'Soft'], diffColor: '#E8622A',
-    desc: 'Roti Perancis kaya lemak dengan tekstur sangat lembut.',
-    steps: ['Campur tepung, gula, ragi, dan garam', 'Tambahkan telur satu per satu sambil diuleni', 'Masukkan butter dingin sedikit demi sedikit, uleni 15-20 menit', 'Bulk fermentasi 2 jam, cold proof semalam', 'Bentuk, proofing 2-3 jam', 'Olesi egg wash, panggang 175°C selama 25-30 menit'],
-    ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Telur', pct: 50, unit: 'g', ref: 250 }, { name: 'Mentega Dingin', pct: 50, unit: 'g', ref: 250 }, { name: 'Air/Susu', pct: 10, unit: 'g', ref: 50 }, { name: 'Gula', pct: 10, unit: 'g', ref: 50 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Ragi Instan', pct: 2, unit: 'g', ref: 10 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Telur', key: 'egg', weight: 30, idealPct: 50, tolerance: 15, desc: 'KRUSIAL - Target 35-65%' }, { name: 'Mentega', key: 'butter', weight: 25, idealPct: 50, tolerance: 15, desc: 'KRUSIAL - Target 35-65%' }, { name: 'Gula', key: 'sugar', weight: 10, idealPct: 10, tolerance: 5, desc: 'Target 5-15%' }, { name: 'Ragi', key: 'yeast', weight: 10, idealPct: 2, tolerance: 0.8, desc: 'Target 1.2-2.8%' }, { name: 'Garam', key: 'salt', weight: 5, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }] },
-  { name: 'Donut', icon: '🍩', hydration: 48, difficulty: 'Medium', time: '3h', tags: ['Fried', 'Sweet'], diffColor: '#E8622A',
-    desc: 'Donut lembut dan fluffy dengan tekstur ringan.',
-    steps: ['Campur tepung, gula, ragi, garam, dan susu bubuk', 'Tambahkan telur, susu hangat, dan butter', 'Uleni hingga adonan elastis dan halus (10-12 menit)', 'Proofing pertama 1 jam hingga 2x lipat', 'Giling adonan 1cm, cetak donut, proofing 30-45 menit', 'Goreng di minyak 175°C selama 1-1.5 menit tiap sisi', 'Celup ke glazur atau taburi gula halus selagi hangat'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Susu Hangat', pct: 45, unit: 'g', ref: 225 }, { name: 'Telur', pct: 20, unit: 'g', ref: 100 }, { name: 'Gula', pct: 15, unit: 'g', ref: 75 }, { name: 'Mentega', pct: 12, unit: 'g', ref: 60 }, { name: 'Ragi Instan', pct: 2, unit: 'g', ref: 10 }, { name: 'Garam', pct: 1.5, unit: 'g', ref: 7.5 }, { name: 'Susu Bubuk', pct: 4, unit: 'g', ref: 20 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi (Susu)', key: 'hydration', weight: 25, idealPct: 48, tolerance: 8, desc: 'Target 40-56%' }, { name: 'Lemak', key: 'fat', weight: 20, idealPct: 12, tolerance: 5, desc: 'Target 7-17%' }, { name: 'Gula', key: 'sugar', weight: 15, idealPct: 15, tolerance: 5, desc: 'Target 10-20%' }, { name: 'Telur', key: 'egg', weight: 10, idealPct: 20, tolerance: 8, desc: 'Target 12-28%' }, { name: 'Ragi', key: 'yeast', weight: 10, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }] },
-  { name: 'Bagel', icon: '🥯', hydration: 58, difficulty: 'Medium', time: '12h', tags: ['Boiled', 'Chewy'], diffColor: '#E8622A',
-    desc: 'Roti cincin khas New York dengan tekstur kenyal dan kulit mengkilap.',
-    steps: ['Campur semua bahan, uleni 10-12 menit hingga adonan kencang', 'Proofing 1 jam, lalu dinginkan semalam di kulkas', 'Bentuk adonan menjadi cincin, proofing 30 menit', 'Rebus tiap bagel 1 menit/sisi di air + baking soda', 'Taburi wijen atau poppy seed', 'Panggang 220°C selama 20-25 menit'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 58, unit: 'g', ref: 290 }, { name: 'Gula/Malt', pct: 3, unit: 'g', ref: 15 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Ragi Instan', pct: 1, unit: 'g', ref: 5 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 35, idealPct: 58, tolerance: 6, desc: 'KRUSIAL - Target 52-64%' }, { name: 'Garam', key: 'salt', weight: 20, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }, { name: 'Ragi', key: 'yeast', weight: 15, idealPct: 1, tolerance: 0.4, desc: 'Target 0.6-1.4%' }, { name: 'Gula/Malt', key: 'sugar', weight: 5, idealPct: 3, tolerance: 1.5, desc: 'Target 1.5-4.5%' }] },
-  { name: 'Focaccia', icon: '🍕', hydration: 85, difficulty: 'Easy', time: '4h', tags: ['Italian', 'Flat'], diffColor: '#7CB87C',
-    desc: 'Roti pipih Italia yang lembut dan beraroma olive oil.',
-    steps: ['Campur tepung, air, ragi, garam, dan olive oil', 'Aduk sebentar, tidak perlu diuleni panjang', 'Stretch & fold 4x setiap 30 menit', 'Tuang ke loyang beroles olive oil, proofing 1 jam', 'Tekan jari membuat lubang-lubang, taburi flaky salt & rosemary', 'Panggang 220°C selama 20-25 menit'],
-    ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 85, unit: 'g', ref: 425 }, { name: 'Olive Oil', pct: 10, unit: 'g', ref: 50 }, { name: 'Garam', pct: 2.5, unit: 'g', ref: 12.5 }, { name: 'Ragi Instan', pct: 0.8, unit: 'g', ref: 4 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 40, idealPct: 85, tolerance: 8, desc: 'KRUSIAL - Target 77-93%' }, { name: 'Olive Oil', key: 'fat', weight: 20, idealPct: 10, tolerance: 5, desc: 'Target 5-15%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2.5, tolerance: 0.5, desc: 'Target 2-3%' }, { name: 'Ragi', key: 'yeast', weight: 5, idealPct: 0.8, tolerance: 0.4, desc: 'Target 0.4-1.2%' }] },
-  { name: 'Pretzel', icon: '🥨', hydration: 60, difficulty: 'Medium', time: '3h', tags: ['Boiled', 'Savory'], diffColor: '#E8622A',
-    desc: 'Pretzel Jerman dengan kulit coklat mengkilap dan rasa asin khas.',
-    steps: ['Campur semua bahan, uleni 8-10 menit hingga elastis', 'Proofing 45 menit', 'Gulung menjadi tali panjang 60cm, bentuk pretzel', 'Celup ke larutan baking soda mendidih 30 detik', 'Taburi garam kasar', 'Panggang 220°C selama 12-15 menit'],
-    ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air Hangat', pct: 60, unit: 'g', ref: 300 }, { name: 'Mentega', pct: 4, unit: 'g', ref: 20 }, { name: 'Gula', pct: 2, unit: 'g', ref: 10 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Ragi Instan', pct: 1.5, unit: 'g', ref: 7.5 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 30, idealPct: 60, tolerance: 6, desc: 'Target 54-66%' }, { name: 'Garam', key: 'salt', weight: 20, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }, { name: 'Ragi', key: 'yeast', weight: 15, idealPct: 1.5, tolerance: 0.5, desc: 'Target 1-2%' }, { name: 'Lemak', key: 'fat', weight: 10, idealPct: 4, tolerance: 2, desc: 'Target 2-6%' }] },
-  { name: 'Cinnamon Roll', icon: '🌀', hydration: 55, difficulty: 'Medium', time: '4h', tags: ['Sweet', 'Rolled'], diffColor: '#C17F3E',
-    desc: 'Roti gulung manis dengan isian kayu manis dan glazur krim.',
-    steps: ['Buat adonan enriched: tepung, susu, telur, gula, ragi, butter', 'Proofing 1 jam', 'Giling tipis, oles butter + gula + kayu manis', 'Gulung rapat, potong 3-4cm', 'Proofing kedua 45 menit', 'Panggang 180°C selama 20-25 menit', 'Oles cream cheese frosting selagi hangat'],
-    ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Susu Hangat', pct: 50, unit: 'g', ref: 250 }, { name: 'Telur', pct: 15, unit: 'g', ref: 75 }, { name: 'Gula', pct: 12, unit: 'g', ref: 60 }, { name: 'Mentega', pct: 10, unit: 'g', ref: 50 }, { name: 'Ragi Instan', pct: 2, unit: 'g', ref: 10 }, { name: 'Garam', pct: 1.5, unit: 'g', ref: 7.5 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 25, idealPct: 55, tolerance: 8, desc: 'Target 47-63%' }, { name: 'Lemak', key: 'fat', weight: 20, idealPct: 10, tolerance: 4, desc: 'Target 6-14%' }, { name: 'Gula', key: 'sugar', weight: 15, idealPct: 12, tolerance: 4, desc: 'Target 8-16%' }, { name: 'Telur', key: 'egg', weight: 10, idealPct: 15, tolerance: 6, desc: 'Target 9-21%' }, { name: 'Ragi', key: 'yeast', weight: 10, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }] },
-  { name: 'Rye Bread', icon: '🌾', hydration: 78, difficulty: 'Hard', time: '18h', tags: ['Rye', 'Dense'], diffColor: '#C17F3E',
-    desc: 'Roti gandum hitam padat khas Eropa Utara dengan rasa asam yang dalam.',
-    steps: ['Aktifkan rye starter 8-12 jam sebelumnya', 'Campurkan tepung rye, terigu, air, starter, garam', 'Aduk rata, adonan sangat lengket — jangan diuleni', 'Fermentasi bulk 3-4 jam', 'Tuang ke loyang berminyak, ratakan', 'Proofing akhir 1 jam', 'Panggang 230°C 15 menit, turunkan 200°C 45 menit'],
-    ingredients: [{ name: 'Tepung Rye', pct: 70, unit: 'g', ref: 350 }, { name: 'Tepung Terigu', pct: 30, unit: 'g', ref: 150 }, { name: 'Air', pct: 78, unit: 'g', ref: 390 }, { name: 'Rye Starter', pct: 25, unit: 'g', ref: 125 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 30, idealPct: 78, tolerance: 10, desc: 'Target 68-88%' }, { name: 'Rye Starter', key: 'starter', weight: 30, idealPct: 25, tolerance: 10, desc: 'KRUSIAL - Target 15-35%' }, { name: 'Garam', key: 'salt', weight: 20, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }] },
-  { name: 'Pizza Dough', icon: '🍕', hydration: 65, difficulty: 'Easy', time: '24h', tags: ['Italian', 'Thin'], diffColor: '#7CB87C',
-    desc: 'Adonan pizza Neapolitan tipis dan crispy. Cold fermentation adalah rahasianya.',
-    steps: ["Campur tepung '00', air dingin, ragi sedikit, garam", 'Uleni 8-10 menit hingga smooth', 'Bulk fermentasi 2 jam', 'Bagi bola 250g, cold proof semalam (24-72 jam)', 'Keluarkan 1-2 jam sebelum dipakai', 'Stretch perlahan dengan tangan', 'Panggang suhu tertinggi oven 8-10 menit'],
-    ingredients: [{ name: "Tepung '00'", pct: 100, unit: 'g', ref: 500 }, { name: 'Air Dingin', pct: 65, unit: 'g', ref: 325 }, { name: 'Garam', pct: 2.8, unit: 'g', ref: 14 }, { name: 'Ragi Instan', pct: 0.3, unit: 'g', ref: 1.5 }, { name: 'Olive Oil', pct: 3, unit: 'g', ref: 15 }],
-    scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 30, idealPct: 65, tolerance: 8, desc: 'Target 57-73%' }, { name: 'Garam', key: 'salt', weight: 25, idealPct: 2.8, tolerance: 0.5, desc: 'Target 2.3-3.3%' }, { name: 'Ragi', key: 'yeast', weight: 15, idealPct: 0.3, tolerance: 0.2, desc: 'Target 0.1-0.5%' }, { name: 'Olive Oil', key: 'fat', weight: 5, idealPct: 3, tolerance: 2, desc: 'Opsional' }] },
+  { name: 'Sourdough', icon: '🥖', hydration: 75, difficulty: 'Hard', time: '24h', tags: ['Artisan', 'Fermentasi'], diffColor: '#C17F3E', desc: 'Roti asam khas artisan dengan crumb terbuka dan kulit renyah.', steps: ['Campurkan tepung & air, diamkan 30 menit (autolyse)', 'Tambahkan starter & garam, aduk rata', 'Stretch & fold setiap 30 menit selama 3 jam', 'Bulk fermentasi 4-6 jam di suhu ruang', 'Bentuk adonan, masukkan banneton', 'Cold proof semalam di kulkas (8-12 jam)', 'Panggang di Dutch oven 250°C: 20 menit tutup, 25 menit buka'], ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 75, unit: 'g', ref: 375 }, { name: 'Starter Sourdough', pct: 20, unit: 'g', ref: 100 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 30, idealPct: 100, tolerance: 0, desc: 'Basis 100%' }, { name: 'Hidrasi', key: 'hydration', weight: 30, idealPct: 75, tolerance: 10, desc: 'Target 65-85%' }, { name: 'Starter', key: 'starter', weight: 25, idealPct: 20, tolerance: 10, desc: 'Target 10-30%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.5, desc: 'Target 1.8-2.2%' }] },
+  { name: 'Roti Tawar', icon: '🍞', hydration: 65, difficulty: 'Easy', time: '3h', tags: ['Soft', 'Klasik'], diffColor: '#7CB87C', desc: 'Roti putih lembut klasik untuk sandwich.', steps: ['Campur semua bahan kering', 'Tambahkan air hangat & mentega, uleni 10-15 menit', 'Proofing pertama 1 jam', 'Kempiskan, bentuk loaf', 'Proofing kedua 45 menit', 'Panggang 180°C selama 30-35 menit'], ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Air Hangat', pct: 65, unit: 'g', ref: 325 }, { name: 'Ragi Instan', pct: 1.5, unit: 'g', ref: 7.5 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }, { name: 'Gula', pct: 5, unit: 'g', ref: 25 }, { name: 'Mentega', pct: 6, unit: 'g', ref: 30 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 25, idealPct: 65, tolerance: 8, desc: 'Target 57-73%' }, { name: 'Ragi', key: 'yeast', weight: 20, idealPct: 1.5, tolerance: 0.5, desc: 'Target 1-2%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }, { name: 'Lemak', key: 'fat', weight: 10, idealPct: 6, tolerance: 3, desc: 'Target 3-9%' }, { name: 'Gula', key: 'sugar', weight: 5, idealPct: 5, tolerance: 3, desc: 'Target 2-8%' }] },
+  { name: 'Croissant', icon: '🥐', hydration: 52, difficulty: 'Expert', time: '48h', tags: ['Laminated', 'French'], diffColor: '#C03030', desc: 'Pastri berlapis khas Perancis dengan tekstur flaky dan renyah.', steps: ['Buat détrempe, dinginkan semalam', 'Siapkan butter block', 'Laminasi 3x book fold', 'Potong & bentuk croissant', 'Proofing 2-3 jam', 'Olesi egg wash, panggang 200°C 18-22 menit'], ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air Dingin', pct: 45, unit: 'g', ref: 225 }, { name: 'Susu Cair', pct: 10, unit: 'g', ref: 50 }, { name: 'Butter Laminasi', pct: 50, unit: 'g', ref: 250 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Butter Laminasi', key: 'butter', weight: 30, idealPct: 50, tolerance: 10, desc: 'KRUSIAL - Target 40-60%' }, { name: 'Hidrasi Total', key: 'hydration', weight: 20, idealPct: 52, tolerance: 8, desc: 'Target 44-60%' }, { name: 'Ragi', key: 'yeast', weight: 15, idealPct: 1.2, tolerance: 0.5, desc: 'Target 0.7-1.7%' }, { name: 'Garam', key: 'salt', weight: 10, idealPct: 2, tolerance: 0.5, desc: 'Target 1.5-2.5%' }, { name: 'Gula', key: 'sugar', weight: 5, idealPct: 10, tolerance: 4, desc: 'Target 6-14%' }] },
+  { name: 'Ciabatta', icon: '🫓', hydration: 80, difficulty: 'Medium', time: '12h', tags: ['Italian', 'Crispy'], diffColor: '#E8622A', desc: 'Roti Italia dengan crumb sangat terbuka dan kulit tipis renyah.', steps: ['Buat biga semalam', 'Stretch & fold setiap 20 menit selama 2 jam', 'Bulk fermentasi 2-3 jam', 'Tuang di meja, potong tanpa deflasi', 'Panggang 230°C 25-30 menit'], ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 80, unit: 'g', ref: 400 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 40, idealPct: 80, tolerance: 8, desc: 'KRUSIAL - Target 72-88%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }] },
+  { name: 'Focaccia', icon: '🍕', hydration: 85, difficulty: 'Easy', time: '4h', tags: ['Italian', 'Flat'], diffColor: '#7CB87C', desc: 'Roti pipih Italia yang lembut dan beraroma olive oil.', steps: ['Campur semua bahan', 'Stretch & fold 4x setiap 30 menit', 'Tuang ke loyang, proofing 1 jam', 'Tekan jari, taburi flaky salt', 'Panggang 220°C 20-25 menit'], ingredients: [{ name: 'Tepung Serbaguna', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 85, unit: 'g', ref: 425 }, { name: 'Olive Oil', pct: 10, unit: 'g', ref: 50 }, { name: 'Garam', pct: 2.5, unit: 'g', ref: 12.5 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 20, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 40, idealPct: 85, tolerance: 8, desc: 'KRUSIAL - Target 77-93%' }, { name: 'Olive Oil', key: 'fat', weight: 20, idealPct: 10, tolerance: 5, desc: 'Target 5-15%' }, { name: 'Garam', key: 'salt', weight: 15, idealPct: 2.5, tolerance: 0.5, desc: 'Target 2-3%' }] },
+  { name: 'Bagel', icon: '🥯', hydration: 58, difficulty: 'Medium', time: '12h', tags: ['Boiled', 'Chewy'], diffColor: '#E8622A', desc: 'Roti cincin khas New York dengan tekstur kenyal.', steps: ['Campur semua bahan, uleni 10-12 menit', 'Proofing 1 jam, dinginkan semalam', 'Bentuk cincin, proofing 30 menit', 'Rebus di air baking soda 1 menit/sisi', 'Panggang 220°C 20-25 menit'], ingredients: [{ name: 'Tepung Protein Tinggi', pct: 100, unit: 'g', ref: 500 }, { name: 'Air', pct: 58, unit: 'g', ref: 290 }, { name: 'Garam', pct: 2, unit: 'g', ref: 10 }], scoring: [{ name: 'Tepung', key: 'flour', weight: 25, idealPct: 100, tolerance: 0, desc: 'Basis utama' }, { name: 'Hidrasi', key: 'hydration', weight: 35, idealPct: 58, tolerance: 6, desc: 'KRUSIAL - Target 52-64%' }, { name: 'Garam', key: 'salt', weight: 20, idealPct: 2, tolerance: 0.4, desc: 'Target 1.6-2.4%' }] },
 ];
-
-export const STAGES_DATA = [
-  { name: 'Autolyse', nameEn: 'Autolyse', emoji: '💧', mins: 30, temp: 'Suhu ruang (24–26°C)', tempEn: 'Room temp (24–26°C)', desc: 'Campurkan tepung & air, diamkan tanpa diuleni. Gluten mulai terbentuk secara alami.', descEn: 'Mix flour & water, rest without kneading. Gluten forms naturally.' },
-  { name: 'Bulk Fermentasi', nameEn: 'Bulk Fermentation', emoji: '🫧', mins: 240, temp: 'Hangat (26–28°C)', tempEn: 'Warm (26–28°C)', desc: 'Fermentasi utama. Adonan harus mengembang 50–75%. Lakukan stretch & fold tiap 30 menit.', descEn: 'Main fermentation. Dough should rise 50–75%. Do stretch & fold every 30 min.' },
-  { name: 'Bench Rest', nameEn: 'Bench Rest', emoji: '😴', mins: 20, temp: 'Suhu ruang (22–24°C)', tempEn: 'Room temp (22–24°C)', desc: 'Istirahatkan adonan setelah dibentuk kasar. Gluten rileks sebelum shaping akhir.', descEn: 'Rest after pre-shaping. Gluten relaxes before final shaping.' },
-  { name: 'Final Proof', nameEn: 'Final Proof', emoji: '🌡️', mins: 60, temp: 'Hangat (26–27°C)', tempEn: 'Warm (26–27°C)', desc: 'Proofing akhir setelah shaping. Adonan siap dipanggang saat lulus tes jari.', descEn: 'Final proof after shaping. Ready when it passes the poke test.' },
-  { name: 'Cold Proof', nameEn: 'Cold Proof', emoji: '❄️', mins: 480, temp: 'Kulkas (4–6°C)', tempEn: 'Fridge (4–6°C)', desc: 'Retard semalam di kulkas untuk rasa lebih kompleks dan jadwal fleksibel.', descEn: 'Overnight retard in fridge for more complex flavor.' },
-  { name: 'Custom', nameEn: 'Custom', emoji: '✏️', mins: 0, temp: '—', tempEn: '—', desc: 'Atur durasi sendiri sesuai kebutuhan.', descEn: 'Set your own custom duration.' },
-];
-
-export const BAKING_INGREDIENTS = [
-  { name: 'Tepung Serbaguna', nameEn: 'All-Purpose Flour', gPerCup: 125 },
-  { name: 'Tepung Protein Tinggi', nameEn: 'Bread Flour', gPerCup: 130 },
-  { name: 'Gula Pasir', nameEn: 'Granulated Sugar', gPerCup: 200 },
-  { name: 'Gula Bubuk', nameEn: 'Powdered Sugar', gPerCup: 120 },
-  { name: 'Gula Merah (padat)', nameEn: 'Brown Sugar (packed)', gPerCup: 220 },
-  { name: 'Mentega', nameEn: 'Butter', gPerCup: 227 },
-  { name: 'Air / Susu Cair', nameEn: 'Water / Liquid Milk', gPerCup: 240 },
-  { name: 'Minyak Goreng', nameEn: 'Vegetable Oil', gPerCup: 218 },
-  { name: 'Susu Bubuk', nameEn: 'Milk Powder', gPerCup: 120 },
-  { name: 'Cocoa Powder', nameEn: 'Cocoa Powder', gPerCup: 85 },
-  { name: 'Oat / Rolled Oats', nameEn: 'Rolled Oats', gPerCup: 90 },
-  { name: 'Garam', nameEn: 'Salt', gPerCup: 288 },
-];
-
-export const GAS_MARKS = [
-  { gas: '¼', celsius: 110, fahrenheit: 225, desc: 'Sangat rendah' },
-  { gas: '½', celsius: 130, fahrenheit: 265, desc: 'Sangat rendah' },
-  { gas: '1', celsius: 140, fahrenheit: 285, desc: 'Rendah' },
-  { gas: '2', celsius: 150, fahrenheit: 300, desc: 'Rendah' },
-  { gas: '3', celsius: 170, fahrenheit: 335, desc: 'Sedang rendah' },
-  { gas: '4', celsius: 180, fahrenheit: 355, desc: 'Sedang' },
-  { gas: '5', celsius: 190, fahrenheit: 375, desc: 'Sedang tinggi' },
-  { gas: '6', celsius: 200, fahrenheit: 390, desc: 'Panas' },
-  { gas: '7', celsius: 220, fahrenheit: 425, desc: 'Panas' },
-  { gas: '8', celsius: 230, fahrenheit: 450, desc: 'Sangat panas' },
-  { gas: '9', celsius: 240, fahrenheit: 465, desc: 'Sangat panas' },
-];
-
-export const QUICK_PROMPTS = [
-  'Kenapa roti saya tidak mengembang?',
-  'Berapa suhu ideal untuk proofing?',
-  'Cara tahu adonan sudah cukup diuleni?',
-  'Perbedaan ragi instan dan ragi aktif?',
-  'Kenapa kulit roti saya tidak renyah?',
-  'Apa itu windowpane test?',
-];
-
-export const SYSTEM_PROMPT = `Kamu adalah BreadMaster AI, seorang ahli roti profesional dengan pengalaman lebih dari 20 tahun di dunia baking. Kamu fasih dalam bahasa Indonesia dan Inggris.
-
-Kemampuanmu:
-1. ANALISIS ADONAN — Jika user menyebutkan komposisi bahan, analisis hidrasi dan baker's percentage
-2. SARAN PERBAIKAN — Berikan saran konkret jika ada yang kurang tepat
-3. DIAGNOSA MASALAH — Diagnosa penyebab dan solusi masalah roti
-4. CHAT BEBAS — Jawab pertanyaan seputar baking
-
-Gaya komunikasi:
-- Hangat, supportif, dan encouraging seperti mentor yang baik
-- Gunakan bahasa yang sama dengan user
-- Gunakan emoji secukupnya 🍞
-- Jika diagnosa: penyebab → solusi → tips pencegahan`;
-
-export function getBreadType(h) {
-  if (h < 60) return { type: 'Roti Padat / Dense Bread', desc: 'Hidrasi rendah menghasilkan adonan yang kencang. Cocok untuk roti toast, bagel, atau pretzel.' };
-  if (h < 70) return { type: 'Roti Lunak / Soft Bread', desc: 'Hidrasi seimbang untuk roti tawar, brioche, atau roti sandwich yang empuk.' };
-  if (h < 80) return { type: 'Artisan Bread / Sourdough', desc: 'Hidrasi tinggi menghasilkan crumb terbuka dan kulit renyah. Ideal untuk sourdough dan ciabatta.' };
-  return { type: 'Slack Dough / Focaccia', desc: 'Hidrasi sangat tinggi. Adonan sangat lembek, sempurna untuk focaccia.' };
-}
