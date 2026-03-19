@@ -1,76 +1,86 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useFonts, PlayfairDisplay_700Bold, PlayfairDisplay_900Black } from '@expo-google-fonts/playfair-display';
+import { DMSans_400Regular, DMSans_500Medium, DMSans_600SemiBold, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
+import * as SplashScreen from 'expo-splash-screen';
+import { BASE_LIQUID_DB } from './data/index';
+
 import HomeScreen from './screens/HomeScreen';
 import HydrationScreen from './screens/HydrationScreen';
 import RecipesScreen from './screens/RecipesScreen';
-import BakersScreen from './screens/BakersScreen';
 import TimerScreen from './screens/TimerScreen';
+import MyBreadScreen from './screens/MyBreadScreen';
 import ConversionScreen from './screens/ConversionScreen';
-import { HYDRATION_PRESETS } from './data/recipes';
+import GlossaryScreen from './screens/GlossaryScreen';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [screen, setScreen] = useState('home');
   const [lang, setLang] = useState('id');
-
-  // Shared state: database bahan cair (bisa ditambah user)
-  const [liquidDB, setLiquidDB] = useState(HYDRATION_PRESETS);
-
-  // Data yang dikirim dari Baker's % ke Hidrasi
+  const [screen, setScreen] = useState('home');
+  const [liquidDB, setLiquidDB] = useState(BASE_LIQUID_DB);
   const [importedFromBakers, setImportedFromBakers] = useState(null);
 
   const [fontsLoaded] = useFonts({
     PlayfairDisplay_700Bold,
     PlayfairDisplay_900Black,
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_600SemiBold,
+    DMSans_700Bold,
   });
 
-  if (!fontsLoaded) {
-    return (
-      <View style={styles.loading}>
-        <Text style={styles.loadingText}>🍞</Text>
-      </View>
-    );
-  }
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) await SplashScreen.hideAsync();
+  }, [fontsLoaded]);
 
-  const navigate = (s) => setScreen(s);
-  const goHome = () => setScreen('home');
+  if (!fontsLoaded) return null;
 
-  // Dipanggil dari BakersScreen saat tap "Kirim ke Hidrasi"
   const navigateToHydrationWithData = (data) => {
     setImportedFromBakers(data);
     setScreen('hydration');
   };
 
+  const screenProps = { lang, setLang };
+
   return (
-    <>
-      <StatusBar style="light" />
-      {screen === 'home' && <HomeScreen lang={lang} setLang={setLang} navigate={navigate} />}
+    <View style={s.container} onLayout={onLayoutRootView}>
+      {screen === 'home' && (
+        <HomeScreen {...screenProps} setScreen={setScreen} />
+      )}
       {screen === 'hydration' && (
         <HydrationScreen
-          lang={lang}
-          onBack={goHome}
+          {...screenProps}
+          onBack={() => setScreen('home')}
           liquidDB={liquidDB}
           setLiquidDB={setLiquidDB}
           importedData={importedFromBakers}
           clearImport={() => setImportedFromBakers(null)}
         />
       )}
-      {screen === 'recipes' && <RecipesScreen lang={lang} onBack={goHome} />}
+      {screen === 'recipes' && (
+        <RecipesScreen {...screenProps} onBack={() => setScreen('home')} />
+      )}
+      {screen === 'timer' && (
+        <TimerScreen {...screenProps} onBack={() => setScreen('home')} />
+      )}
       {screen === 'bakers' && (
-        <BakersScreen
-          lang={lang}
-          onBack={goHome}
+        <MyBreadScreen
+          {...screenProps}
+          onBack={() => setScreen('home')}
           onSendToHydration={navigateToHydrationWithData}
         />
       )}
-      {screen === 'timer' && <TimerScreen lang={lang} onBack={goHome} />}
-      {screen === 'conversion' && <ConversionScreen lang={lang} onBack={goHome} />}
-    </>
+      {screen === 'conversion' && (
+        <ConversionScreen {...screenProps} onBack={() => setScreen('home')} />
+      )}
+      {screen === 'glossary' && (
+        <GlossaryScreen {...screenProps} onBack={() => setScreen('home')} />
+      )}
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  loading: { flex: 1, backgroundColor: '#3B1F0A', alignItems: 'center', justifyContent: 'center' },
-  loadingText: { fontSize: 64 },
+const s = StyleSheet.create({
+  container: { flex: 1 },
 });
