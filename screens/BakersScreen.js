@@ -1,9 +1,8 @@
-// BakersScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { COLORS, FONTS } from '../constants/theme';
 
-export default function BakersScreen({ lang, onBack }) {
+export default function BakersScreen({ lang, onBack, onSendToHydration }) {
   const [mode, setMode] = useState('gramToPct');
   const [scale, setScale] = useState(1);
   const [ingredients, setIngredients] = useState([
@@ -27,6 +26,36 @@ export default function BakersScreen({ lang, onBack }) {
   };
 
   const totalGram = ingredients.reduce((sum, i) => sum + (parseFloat(getResult(i).gram) || 0), 0);
+
+  // Bahan cair = semua bahan non-tepung yang punya nilai
+  const LIQUID_KEYWORDS = ['air', 'susu', 'telur', 'mentega', 'minyak', 'madu', 'santan', 'krim', 'yogurt', 'bir', 'jus', 'water', 'milk', 'egg', 'butter', 'oil'];
+  const isLiquid = (name) => {
+    const n = name.toLowerCase();
+    return LIQUID_KEYWORDS.some(k => n.includes(k));
+  };
+
+  const handleSendToHydration = () => {
+    const flourIng = ingredients.find(i => i.isFlour);
+    const flourGram = flourIng?.val || '500';
+
+    // Kirim semua bahan non-tepung yang ada nilainya
+    const liquidItems = ingredients
+      .filter(i => !i.isFlour && parseFloat(i.val) > 0 && i.name.trim() !== '')
+      .map(i => ({
+        name: i.name,
+        gram: mode === 'gramToPct' ? i.val : String(getResult(i).gram),
+      }));
+
+    if (liquidItems.length === 0) {
+      Alert.alert(
+        lang === 'id' ? 'Tidak ada bahan cair' : 'No liquid ingredients',
+        lang === 'id' ? 'Tambahkan bahan cair terlebih dahulu.' : 'Please add liquid ingredients first.'
+      );
+      return;
+    }
+
+    onSendToHydration({ flourGram, liquids: liquidItems });
+  };
 
   return (
     <SafeAreaView style={s.safe}>
@@ -110,7 +139,7 @@ export default function BakersScreen({ lang, onBack }) {
                 );
               })}
               <View style={[s.tableRow, { backgroundColor: COLORS.cream, borderTopWidth: 2, borderTopColor: COLORS.tan }]}>
-                <Text style={[s.td, { fontWeight: '700', color: COLORS.brownDark }]}>{lang === 'id' ? 'Total' : 'Total'}</Text>
+                <Text style={[s.td, { fontWeight: '700', color: COLORS.brownDark }]}>Total</Text>
                 <Text style={[s.td, { textAlign: 'right', fontWeight: '700', color: COLORS.brownDark }]}>{Math.round(totalGram)}g</Text>
                 <Text style={[s.td, { textAlign: 'right', fontWeight: '700', color: COLORS.brownDark }]}>{Math.round(totalGram * scale)}g</Text>
                 <Text style={[s.td, { textAlign: 'right', fontWeight: '700', color: COLORS.brownDark }]}>—</Text>
@@ -118,6 +147,17 @@ export default function BakersScreen({ lang, onBack }) {
             </View>
           </>
         )}
+
+        {/* Tombol Kirim ke Hidrasi */}
+        <TouchableOpacity style={s.sendBtn} onPress={handleSendToHydration}>
+          <Text style={s.sendBtnText}>
+            💧 {lang === 'id' ? 'Kirim ke Kalkulator Hidrasi' : 'Send to Hydration Calculator'}
+          </Text>
+          <Text style={s.sendBtnSub}>
+            {lang === 'id' ? 'Komposisi otomatis terisi' : 'Composition auto-filled'}
+          </Text>
+        </TouchableOpacity>
+
         <View style={{ height: 32 }} />
       </ScrollView>
     </SafeAreaView>
@@ -158,4 +198,7 @@ const s = StyleSheet.create({
   th: { flex: 1, fontSize: 10, fontWeight: '700', color: COLORS.tanDark, textTransform: 'uppercase' },
   tableRow: { flexDirection: 'row', padding: 11, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: COLORS.tan },
   td: { flex: 1, fontSize: 13, color: COLORS.textMid },
+  sendBtn: { backgroundColor: COLORS.brownDark, borderRadius: 16, padding: 18, alignItems: 'center', marginTop: 16, borderWidth: 2, borderColor: COLORS.brownMid },
+  sendBtnText: { color: COLORS.orangeLight, fontSize: 15, fontWeight: '700', marginBottom: 4 },
+  sendBtnSub: { color: COLORS.tanDark, fontSize: 11 },
 });
